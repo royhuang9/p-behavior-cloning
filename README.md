@@ -10,7 +10,7 @@ The nvidia paper was the start point for me, but I added batch normalization lay
 Keras summary show below:
 
 Layer (type)                     Output Shape          Param \#     Connected to                     
-\====================================================================================================
+====================================================================================================
 lambda_1 (Lambda)                (None, 160, 320, 3)   0           lambda_input_1[0][0]             
 ____________________________________________________________________________________________________
 convolution2d_1 (Convolution2D)  (None, 80, 160, 24)   1824        lambda_1[0][0]                   
@@ -60,7 +60,7 @@ ________________________________________________________________________________
 dropout_3 (Dropout)              (None, 10)            0           activation_3[0][0]               
 ____________________________________________________________________________________________________
 dense_4 (Dense)                  (None, 1)             11          dropout_3[0][0]                  
-\====================================================================================================
+====================================================================================================
 Total params: 230,563
 Trainable params: 229,855
 Non-trainable params: 708
@@ -76,4 +76,4 @@ A python generator is implemented to provide images data for training that will 
 
 
 ##Training:
-Adam optimizer is used.
+Adam optimizer is used. The learning rate is default, but during
