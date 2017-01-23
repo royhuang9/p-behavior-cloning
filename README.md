@@ -3,13 +3,13 @@ Udacity self-drving car project 2
 
 This project is a regression problem with convnet implementation. A trained model need to generate steering angle to operate simulator. The model is trained by images collected from simulator.
 
-Architect of model:
+##Architect of model:
 
 The nvidia paper was the start point for me, but I added batch normalization layers and L2 regualrization to weights. Of course, the input size of the image is different. I adjusted it accordingly.
 
 Keras summary show below:
 
-Layer (type)                     Output Shape          Param #     Connected to                     
+Layer (type)                     Output Shape          Param \#     Connected to                     
 ====================================================================================================
 lambda_1 (Lambda)                (None, 160, 320, 3)   0           lambda_input_1[0][0]             
 ____________________________________________________________________________________________________
@@ -75,5 +75,5 @@ Batch normalization is used to speed convergence. Dropout and L2 regularization 
 A python generator is implemented to provide images data for training that will save memory.
 
 
-Training:
+##Training:
 Adam optimizer is used.
