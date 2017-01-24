@@ -89,7 +89,7 @@ Adam optimizer is used. The learning rate is default, 0.001. But when load an ol
 Validation data is used to check whether the traing should stop. Keras.callback.EarlyStop is defined with parameters, min_delta=0.002, patience=5. This mean when validation loss doesn't descrease 0.002 at last 5 epoches, the training will stop. Model weights is saved after every epoch. After about 50 epoches, it stopped. I haven't written down the exactly number. At least it is bigger than 5 epoches that some guys mentioned in slack and medium post.
 
 I ever spent some time to discover how many epoch should be choosed to get a best result. <insert a loss history picture here>. I found both train loss and validation loss doesn't change after some epoches.
-![loss history1](/images/loss_history1.png?raw=true "loss history2")
+![loss history1](images/loss_history1.png?raw=true "loss history2")
 
 I tried the model I got in autonomous mode. It can pass the bridge and the left turn behind bridge, but run off road and drowned in the flowing right trun.
 
