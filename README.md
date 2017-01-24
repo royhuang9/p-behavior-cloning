@@ -74,7 +74,6 @@ Batch normalization is used to speed convergence. Dropout and L2 regularization 
 
 A python generator is implemented to provide images data for training that will save memory.
 
-
 ## Data set and Training:
 I included the Udacity data in my dataset. I also drived the car in simulator to collect data with a joystick. The joystick is a cheap one and doesn't operate smoothly, but it is better than keyboard. Another explanation about the joystick is that I am not good at playing game, so I cannot operate the car smoothly even with a joystick.
 
@@ -82,14 +81,15 @@ Most time I drived the car in the middle of track to collect data. According to 
 
 The image size is 160x320, I didn't resize or crop the image. The first layer of model will normalize image. In my training, left and right images are also used. In the image generator, the steering angle of left image is shift [0 0.2] angle randomly. The steering angle of right image is shift [-0.2 0] angle randomly. All images are flipped left to right which will double the images to about 160000. 90% of them are used as traing data and 10% are vlidation data.
 
-< insert some images with steering angle>
+![loss history](images/visuals.png?raw=true "loss history")
 
 Adam optimizer is used. The learning rate is default, 0.001. But when load an old model to refine, the learing rate will be 0.0001, otherwise the new data will mess the model.
 
 Validation data is used to check whether the traing should stop. Keras.callback.EarlyStop is defined with parameters, min_delta=0.002, patience=5. This mean when validation loss doesn't descrease 0.002 at last 5 epoches, the training will stop. Model weights is saved after every epoch. After about 50 epoches, it stopped. I haven't written down the exactly number. At least it is bigger than 5 epoches that some guys mentioned in slack and medium post.
 
-I ever spent some time to discover how many epoch should be choosed to get a best result. <insert a loss history picture here>. I found both train loss and validation loss doesn't change after some epoches.
-![loss history1](images/loss_history1.png?raw=true "loss history2")
+I ever spent some time to discover how many epoch should be choosed to get a best result. <insert a loss history picture here>. I found both train loss and validation loss doesn't change after some epoches. The green line is validation loss, I don't know why there are some spikes on validation loss. Maybe there are some bugs with keras.
+
+![loss history](images/loss_history1.png?raw=true "loss history")
 
 I tried the model I got in autonomous mode. It can pass the bridge and the left turn behind bridge, but run off road and drowned in the flowing right trun.
 
