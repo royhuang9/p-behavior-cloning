@@ -66,7 +66,7 @@ Trainable params: 229,855
 Non-trainable params: 708
 ____________________________________________
 
-The first layer is normalization, which normalizes every pixel to [0 - 1]. The second, third, fourth, fifth and sixth layers are convnets which have the filter size (24,5,5),(36,5,5),(48,5,5),(64,3,3),(64,3,3). There is a batch normalization layer is append in every convnets. Except the last convnet, all convnets have stride of 2*2. The first convet also include a maxpooling sublayer. Relu activation is used.
+The first layer is normalization, which normalizes every pixel to [-1  1]. The second, third, fourth, fifth and sixth layers are convnets which have the filter size (24,5,5),(36,5,5),(48,5,5),(64,3,3),(64,3,3). There is a batch normalization layer is append in every convnets. Except the last convnet, all convnets have stride of 2*2. The first convet also include a maxpooling sublayer. Relu activation is used.
 
 There are four fully connected neuron network layers followed. Every fully connected neuron network layers has a dropout and batch normaliation sublayers.
 
@@ -75,5 +75,23 @@ Batch normalization is used to speed convergence. Dropout and L2 regularization 
 A python generator is implemented to provide images data for training that will save memory.
 
 
-##Training:
-Adam optimizer is used. The learning rate is default, but during
+## Data set and Training:
+
+I included the Udacity data in my dataset. I also drived the car in simulator to collect data with a joystick. The joystick is a cheap one and doesn't operate smoothly, but it is better than keyboard. Another explanation about the joystick is that I am not good at playing game, so I cannot operate the car smoothly even with a joystick.
+
+Most time I drived the car in the middle of track to collect data. According to Udacity notes, I need to drive the car to the road side to collect some recovery data. But I made a mistake here. I collect both the car weave off the road and back the middle of road. When I realize this mistake, I already mix all data together and I cannot distinguished them. Eventually I collect 82011 images which including left, center and right images.
+
+The image size is 160x320, I didn't resize or crop the image. The first layer of model will normalize image. In my training, left and right images are also used. In the image generator, the steering angle of left image is shift [0 0.2] angle randomly. The steering angle of right image is shift [-0.2 0] angle randomly. All images are flipped left to right which will double the images to about 160000. 90% of them are used as traing data and 10% are vlidation data.
+
+Adam optimizer is used. The learning rate is default, 0.001. But when load an old model to refine, the learing rate will be 0.0001, otherwise the new data will mess the model.
+
+Validation data is used to check whether the traing should stop. Keras.callback.EarlyStop is defined with parameters, min_delta=0.002, patience=5. This mean when validation loss doesn't descrease 0.002 at last 5 epoches, the training will stop. Model weights is saved after every epoch. After about 50 epoches, it stopped. I haven't written down the exactly number. At least it is bigger than 5 epoches that some guys mentioned in slack and medium post.
+
+I ever spent some time to discover how many epoch should used to get a best result.
+
+
+Next Step:
+I will try the right track in the simulator. In order to do so, I will improve my mode as following:
+Crop the image to abandon the top 1/3 part of the images which have no relationship with drving. 
+Convert the iamge to grayscale.
+
